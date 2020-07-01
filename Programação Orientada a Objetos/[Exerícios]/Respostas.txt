@@ -1,0 +1,7 @@
+Objetos Fisicos:
+- Mesa
+- Computador
+
+Objetos Conceituais:
+- Gravidade
+- Energia

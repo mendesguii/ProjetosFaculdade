@@ -1,0 +1,5 @@
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\Model\bin\Debug\Model.dll
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\Model\bin\Debug\Model.pdb
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\Model\obj\Debug\Model.dll
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\Model\obj\Debug\Model.pdb

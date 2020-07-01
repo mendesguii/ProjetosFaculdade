@@ -1,0 +1,10 @@
+Username: fPLiB2SXVt
+
+Database name: fPLiB2SXVt
+
+Password: b1GVgh6G9N
+
+Server: remotemysql.com
+
+Port: 3306
+

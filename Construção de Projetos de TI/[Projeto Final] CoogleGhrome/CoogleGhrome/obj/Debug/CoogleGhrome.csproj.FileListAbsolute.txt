@@ -1,0 +1,15 @@
+c:\users\guilherme\documents\visual studio 2012\Projects\CoogleGhrome\CoogleGhrome\bin\Debug\CoogleGhrome.exe.config
+c:\users\guilherme\documents\visual studio 2012\Projects\CoogleGhrome\CoogleGhrome\bin\Debug\CoogleGhrome.exe
+c:\users\guilherme\documents\visual studio 2012\Projects\CoogleGhrome\CoogleGhrome\bin\Debug\CoogleGhrome.pdb
+c:\users\guilherme\documents\visual studio 2012\Projects\CoogleGhrome\CoogleGhrome\obj\Debug\CoogleGhrome.csprojResolveAssemblyReference.cache
+c:\users\guilherme\documents\visual studio 2012\Projects\CoogleGhrome\CoogleGhrome\obj\Debug\CoogleGhrome.Properties.Resources.resources
+c:\users\guilherme\documents\visual studio 2012\Projects\CoogleGhrome\CoogleGhrome\obj\Debug\CoogleGhrome.csproj.GenerateResource.Cache
+c:\users\guilherme\documents\visual studio 2012\Projects\CoogleGhrome\CoogleGhrome\obj\Debug\CoogleGhrome.exe
+c:\users\guilherme\documents\visual studio 2012\Projects\CoogleGhrome\CoogleGhrome\obj\Debug\CoogleGhrome.pdb
+c:\users\guilherme\documents\visual studio 2012\Projects\CoogleGhrome\CoogleGhrome\obj\Debug\CoogleGhrome.Browser.resources
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\CoogleGhrome\bin\Debug\MySql.Data.dll
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\CoogleGhrome\obj\Debug\CoogleGhrome.Cadastro.resources
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\CoogleGhrome\obj\Debug\CoogleGhrome.Login.resources
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\CoogleGhrome\obj\Debug\CoogleGhrome.ExibicaoHistorico.resources
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\CoogleGhrome\obj\Debug\CoogleGhrome.InserirFavorito.resources
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\CoogleGhrome\obj\Debug\CoogleGhrome.ExibicaoFavorito.resources

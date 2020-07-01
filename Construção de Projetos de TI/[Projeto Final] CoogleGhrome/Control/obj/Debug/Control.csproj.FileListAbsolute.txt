@@ -1,0 +1,10 @@
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\Control\obj\Debug\Control.csprojResolveAssemblyReference.cache
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\Control\bin\Debug\Control.dll
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\Control\bin\Debug\Control.pdb
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\Control\bin\Debug\Data.dll
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\Control\bin\Debug\Model.dll
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\Control\bin\Debug\MySql.Data.dll
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\Control\bin\Debug\Data.pdb
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\Control\bin\Debug\Model.pdb
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\Control\obj\Debug\Control.dll
+C:\Users\Guilherme\documents\visual studio 2012\Projects\CoogleGhrome\Control\obj\Debug\Control.pdb

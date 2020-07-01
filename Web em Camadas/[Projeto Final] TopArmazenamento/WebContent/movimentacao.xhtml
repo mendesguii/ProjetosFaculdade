@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+	<ui:define name="cabecalho">
+		<ui:include src="/templates/cabecalho.xhtml" />
+	</ui:define>
+
+	<ui:define name="menu">
+		<ui:include src="/templates/menu.xhtml" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h3 style="text-align: center;" id="tituloPrincipal">Movimentações</h3>
+
+
+		<h:form id="formTabela">
+			<p:dataTable  id="tabelaMovimentacao" var="movimentacao"
+				value="#{movimentacaoBean.listaModelmovimentacoes}"
+				filteredValue="#{movimentacaoBean.listaFiltradaModelMovimentacoes}" rows="10"
+				paginator="true" rowsPerPageTemplate="5,10,15"
+				emptyMessage="Nenhuma movimentacao cadastrada no banco de dados">
+
+				<p:column filterBy="#{movimentacao.id}" headerText="Id"
+					footerText="-" filterMatchMode="contains">
+
+					<center><h:outputText value="#{movimentacao.id}" /> </center>
+				</p:column>
+
+				<p:column headerText="Item">
+					<center><h:outputText value="#{movimentacao.item.partNumber}" /></center>
+				</p:column>
+
+				<p:column headerText="Armazem">
+					<center><h:outputText value="#{movimentacao.armazem.nome}" /></center>
+				</p:column>
+				
+				<p:column headerText="Quantidade">
+					<center><h:outputText value="#{movimentacao.quantidade}" /></center>
+				</p:column>
+				
+				<p:column headerText="Preço">
+					<center><h:outputText value="#{movimentacao.preco}" /></center>
+				</p:column>
+
+
+				<p:column headerText="Opções">
+					<center>
+					<p:commandButton icon="pi pi-pencil"
+						actionListener="#{movimentacaoBean.PrepararUpdate}"
+						onclick="PF('dlgAlterarMovimentacao').show()"
+						update=":fAlterar:pgAlterar" />
+
+					<p:commandButton icon="pi pi-trash"
+						actionListener="#{movimentacaoBean.PrepararDelete}"
+						onclick="PF('dlgExcluirMovimentacao').show();"
+						update=":fExcluirMovimentacao:pgExcluirMovimentacao" />
+					</center>
+				</p:column>
+
+				<f:facet name="footer">
+					<p:commandButton value="Nova Movimentação" icon="pi pi-user-plus"
+						actionListener="#{movimentacaoBean.PrepararNovo}"
+						oncomplete="PF('dlgCadastrarMovimentacao').show();"
+						update=":fCadastrar:pgCadastrar" />
+				</f:facet>
+
+			</p:dataTable>
+		</h:form>
+
+		<p:dialog header="Cadastrar Movimentacao" widgetVar="dlgCadastrarMovimentacao"
+			modal="true" showEffect="blind" hideEffect="explode"
+			resizable="false" appendTo="@(body)">
+
+			<h:form id="fCadastrar">
+
+				<p:outputPanel id="painelCadastrarMovimentacao"
+					style="text-align:center;">
+
+					<p:panelGrid id="pgCadastrar" columns="2"
+						columnClasses="label,value">
+
+						<h:outputText value="idItem" />
+						<h:inputText value="#{movimentacaoBean.movimentacao.item.id}" />
+
+						<h:outputText value="idArmazem" />
+						<h:inputText value="#{movimentacaoBean.movimentacao.armazem.id}" />
+												
+						<h:outputText value="Quantidade" />
+						<h:inputText value="#{movimentacaoBean.movimentacao.quantidade}" />		
+						
+						<h:outputText value="Preço" />
+						<h:inputText value="#{movimentacaoBean.movimentacao.preco}" />					
+
+					</p:panelGrid>
+
+					<h:panelGrid columns="2">
+
+						<p:commandButton value="Cadastrar"
+							oncomplete="PF('dlgCadastrarMovimentacao').hide();"
+							actionListener="#{movimentacaoBean.Insert}"
+							update=":formTabela:tabelaMovimentacao :msgGlobal" />
+
+						<p:commandButton value="Cancel"
+							onclick="PF('dlgCadastrarMovimentacao').hide();" />
+					</h:panelGrid>
+
+				</p:outputPanel>
+
+			</h:form>
+
+		</p:dialog>
+
+		<p:dialog header="Excluir Movimentacao" widgetVar="dlgExcluirMovimentacao"
+			modal="true" showEffect="blind" hideEffect="explode"
+			resizable="false" appendTo="@(body)">
+
+			<h:form id="fExcluirMovimentacao">
+
+				<p:outputPanel id="pgExcluirMovimentacao" style="text-align:center;">
+
+					<p:panelGrid columns="2" columnClasses="label,value">
+
+						<h:outputText value="Id" />
+						<h:outputText value="#{movimentacaoBean.movimentacao.id}" />
+
+						<h:outputText value="Item" />
+						<h:outputText value="#{movimentacaoBean.movimentacao.item.partNumber}" />
+
+						<h:outputText value="Armazem" />
+						<h:outputText value="#{movimentacaoBean.movimentacao.armazem.nome}" />
+						
+						<h:outputText value="Quantidade" />
+						<h:outputText value="#{movimentacaoBean.movimentacao.quantidade}" />
+						
+						<h:outputText value="Preço" />
+						<h:outputText value="#{movimentacaoBean.movimentacao.preco}" />
+						
+
+
+					</p:panelGrid>
+
+					<h:panelGrid columns="2">
+
+						<p:commandButton value="Excluir"
+							oncomplete="PF('dlgExcluirMovimentacao').hide();"
+							actionListener="#{movimentacaoBean.Delete}"
+							update=":formTabela:tabelaMovimentacao :msgGlobal" />
+
+						<p:commandButton value="Cancel"
+							onclick="PF('dlgExcluirMovimentacao').hide();" />
+
+					</h:panelGrid>
+
+				</p:outputPanel>
+
+			</h:form>
+
+		</p:dialog>
+
+		<p:dialog header="Alterar Movimentacao" widgetVar="dlgAlterarMovimentacao"
+			modal="true" showEffect="blind" hideEffect="explode"
+			resizable="false" appendTo="@(body)">
+
+			<h:form id="fAlterar">
+
+				<p:outputPanel id="pgAlterar" style="text-align:center;">
+
+					<p:panelGrid columns="2" columnClasses="label,value">
+
+						<h:outputText value="Id" />
+						<h:outputText value="#{movimentacaoBean.movimentacao.id}" />
+
+						<h:outputText value="Item" />
+						<h:inputText value="#{movimentacaoBean.movimentacao.item.partNumber}" />
+
+						<h:outputText value="Armazem" />
+						<h:inputText value="#{movimentacaoBean.movimentacao.armazem.nome}" />
+						
+						<h:outputText value="Quantidade" />
+						<h:inputText value="#{movimentacaoBean.movimentacao.quantidade}" />
+						
+						<h:outputText value="Preço" />
+						<h:inputText value="#{movimentacaoBean.movimentacao.preco}" />
+						
+
+					</p:panelGrid>
+
+					<h:panelGrid columns="2">
+
+						<p:commandButton value="Alterar"
+							oncomplete="PF('dlgAlterarMovimentacao').hide();"
+							actionListener="#{movimentacaoBean.Update}"
+							update=":formTabela:tabelaMovimentacao :msgGlobal" />
+
+						<p:commandButton value="Cancel"
+							onclick="PF('dlgAlterarMovimentacao').hide();" />
+
+					</h:panelGrid>
+
+				</p:outputPanel>
+
+			</h:form>
+
+		</p:dialog>
+
+
+	</ui:define>
+
+	<ui:define name="rodape">
+		<ui:include src="/templates/rodape.xhtml" />
+	</ui:define>
+
+</ui:composition>

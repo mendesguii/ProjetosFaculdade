@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+	<ui:define name="cabecalho">
+		<ui:include src="/templates/cabecalho.xhtml" />
+	</ui:define>
+
+	<ui:define name="menu">
+		<ui:include src="/templates/menu.xhtml" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h3 style="text-align: center;" id="tituloPrincipal">Fornecedor</h3>
+
+
+		<h:form id="formTabela">
+			<p:dataTable  id="tabelaFornecedor" var="fornecedor"
+				value="#{fornecedorBean.listaModelfornecedores}"
+				filteredValue="#{fornecedorBean.listaFiltradaModelFornecedores}" rows="10"
+				paginator="true" rowsPerPageTemplate="5,10,15"
+				emptyMessage="Nenhuma fornecedor cadastrada no banco de dados">
+
+				<p:column filterBy="#{fornecedor.id}" headerText="Id"
+					footerText="-" filterMatchMode="contains">
+
+					<center><h:outputText value="#{fornecedor.id}" /> </center>
+				</p:column>
+
+				<p:column headerText="Nome">
+					<center><h:outputText value="#{fornecedor.nome}" /></center>
+				</p:column>
+
+				<p:column headerText="Email">
+					<center><h:outputText value="#{fornecedor.email}" /></center>
+				</p:column>
+				
+				<p:column headerText="Telefone">
+					<center><h:outputText value="#{fornecedor.telefone}" /></center>
+				</p:column>
+
+				<p:column headerText="Opções">
+					<center>
+					<p:commandButton icon="pi pi-pencil"
+						actionListener="#{fornecedorBean.PrepararUpdate}"
+						onclick="PF('dlgAlterarFornecedor').show()"
+						update=":fAlterar:pgAlterar" />
+
+					<p:commandButton icon="pi pi-trash"
+						actionListener="#{fornecedorBean.PrepararDelete}"
+						onclick="PF('dlgExcluirFornecedor').show();"
+						update=":fExcluirFornecedor:pgExcluirFornecedor" />
+					</center>
+				</p:column>
+
+				<f:facet name="footer">
+					<p:commandButton value="Novo Fornecedor" icon="pi pi-user-plus"
+						actionListener="#{fornecedorBean.PrepararNovo}"
+						oncomplete="PF('dlgCadastrarFornecedor').show();"
+						update=":fCadastrar:pgCadastrar" />
+				</f:facet>
+
+			</p:dataTable>
+		</h:form>
+
+		<p:dialog header="Cadastrar Fornecedor" widgetVar="dlgCadastrarFornecedor"
+			modal="true" showEffect="blind" hideEffect="explode"
+			resizable="false" appendTo="@(body)">
+
+			<h:form id="fCadastrar">
+
+				<p:outputPanel id="painelCadastrarFornecedor"
+					style="text-align:center;">
+
+					<p:panelGrid id="pgCadastrar" columns="2"
+						columnClasses="label,value">
+
+						<h:outputText value="Nome" />
+						<p:inputText value="#{fornecedorBean.fornecedor.nome}" />
+
+						<h:outputText value="E-mail" />
+						<p:inputText value="#{fornecedorBean.fornecedor.email}" />
+						
+						<h:outputText value="Telefone" />
+						<p:inputText value="#{fornecedorBean.fornecedor.telefone}" />
+						
+
+					</p:panelGrid>
+
+					<h:panelGrid columns="2">
+
+						<p:commandButton value="Cadastrar"
+							oncomplete="PF('dlgCadastrarFornecedor').hide();"
+							actionListener="#{fornecedorBean.Insert}"
+							update=":formTabela:tabelaFornecedor :msgGlobal" />
+
+						<p:commandButton value="Cancel"
+							onclick="PF('dlgCadastrarFornecedor').hide();" />
+					</h:panelGrid>
+
+				</p:outputPanel>
+
+			</h:form>
+
+		</p:dialog>
+
+		<p:dialog header="Excluir Fornecedor" widgetVar="dlgExcluirFornecedor"
+			modal="true" showEffect="blind" hideEffect="explode"
+			resizable="false" appendTo="@(body)">
+
+			<h:form id="fExcluirFornecedor">
+
+				<p:outputPanel id="pgExcluirFornecedor" style="text-align:center;">
+
+					<p:panelGrid columns="2" columnClasses="label,value">
+
+						<h:outputText value="Id:" />
+						<h:outputText value="#{fornecedorBean.fornecedor.id}" />
+
+						<h:outputText value="Nome" />
+						<h:outputText value="#{fornecedorBean.fornecedor.nome}" />
+				
+						<h:outputText value="E-mail" />
+						<h:outputText value="#{fornecedorBean.fornecedor.email}" />
+						
+						<h:outputText value="Telefone" />
+						<h:outputText value="#{fornecedorBean.fornecedor.telefone}" />
+
+					</p:panelGrid>
+
+					<h:panelGrid columns="2">
+
+						<p:commandButton value="Excluir"
+							oncomplete="PF('dlgExcluirFornecedor').hide();"
+							actionListener="#{fornecedorBean.Delete}"
+							update=":formTabela:tabelaFornecedor :msgGlobal" />
+
+						<p:commandButton value="Cancel"
+							onclick="PF('dlgExcluirFornecedor').hide();" />
+
+					</h:panelGrid>
+
+				</p:outputPanel>
+
+			</h:form>
+
+		</p:dialog>
+
+		<p:dialog header="Alterar Fornecedor" widgetVar="dlgAlterarFornecedor"
+			modal="true" showEffect="blind" hideEffect="explode"
+			resizable="false" appendTo="@(body)">
+
+			<h:form id="fAlterar">
+
+				<p:outputPanel id="pgAlterar" style="text-align:center;">
+
+					<p:panelGrid columns="2" columnClasses="label,value">
+
+						<h:outputText value="Id" />
+						<h:outputText value="#{fornecedorBean.fornecedor.id}" />
+
+						<h:outputText value="Nome" />
+						<p:inputText value="#{fornecedorBean.fornecedor.nome}" />
+
+						<h:outputText value="Telefone" />
+						<p:inputText value="#{fornecedorBean.fornecedor.telefone}" />
+						
+						<h:outputText value="E-mail" />
+						<p:inputText value="#{fornecedorBean.fornecedor.email}" />
+
+					</p:panelGrid>
+
+					<h:panelGrid columns="2">
+
+						<p:commandButton value="Alterar"
+							oncomplete="PF('dlgAlterarFornecedor').hide();"
+							actionListener="#{fornecedorBean.Update}"
+							update=":formTabela:tabelaFornecedor :msgGlobal" />
+
+						<p:commandButton value="Cancel"
+							onclick="PF('dlgAlterarFornecedor').hide();" />
+
+					</h:panelGrid>
+
+				</p:outputPanel>
+
+			</h:form>
+
+		</p:dialog>
+
+
+	</ui:define>
+
+	<ui:define name="rodape">
+		<ui:include src="/templates/rodape.xhtml" />
+	</ui:define>
+
+</ui:composition>

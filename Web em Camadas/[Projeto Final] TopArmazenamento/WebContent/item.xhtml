@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+	<ui:define name="cabecalho">
+		<ui:include src="/templates/cabecalho.xhtml" />
+	</ui:define>
+
+	<ui:define name="menu">
+		<ui:include src="/templates/menu.xhtml" />
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h3 style="text-align: center;" id="tituloPrincipal">Itens</h3>
+
+
+		<h:form id="formTabela">
+			<p:dataTable  id="tabelaItem" var="item"
+				value="#{itemBean.listaModelitens}"
+				filteredValue="#{itemBean.listaFiltradaModelItens}" rows="10"
+				paginator="true" rowsPerPageTemplate="5,10,15"
+				emptyMessage="Nenhuma item cadastrada no banco de dados">
+
+				<p:column filterBy="#{item.id}" headerText="Id"
+					footerText="-" filterMatchMode="contains">
+
+					<center><h:outputText value="#{item.id}" /> </center>
+				</p:column>
+
+				<p:column headerText="Part Number">
+					<center><h:outputText value="#{item.partNumber}" /></center>
+				</p:column>
+
+				<p:column headerText="Descrição">
+					<center><h:outputText value="#{item.descricao}" /></center>
+				</p:column>
+				
+				<p:column headerText="UDM">
+					<center><h:outputText value="#{item.unidadeDeMedida}" /></center>
+				</p:column>
+				
+				<p:column headerText="Cliente">
+					<center><h:outputText value="#{item.cliente.nome}" /></center>
+				</p:column>
+				
+				<p:column headerText="Fornecedor">
+					<center><h:outputText value="#{item.fornecedor.nome}" /></center>
+				</p:column>
+				
+				<p:column headerText="Barcode">
+    			<center> <p:barcode value="#{item.partNumber}" type="code128" /> </center>
+				</p:column>
+				<p:column headerText="Opções">
+					<center>
+					<p:commandButton icon="pi pi-pencil"
+						actionListener="#{itemBean.PrepararUpdate}"
+						onclick="PF('dlgAlterarItem').show()"
+						update=":fAlterar:pgAlterar" />
+
+					<p:commandButton icon="pi pi-trash"
+						actionListener="#{itemBean.PrepararDelete}"
+						onclick="PF('dlgExcluirItem').show();"
+						update=":fExcluirItem:pgExcluirItem" />
+					</center>
+				</p:column>
+
+				<f:facet name="footer">
+					<p:commandButton value="Novo Item" icon="pi pi-user-plus"
+						actionListener="#{itemBean.PrepararNovo}"
+						oncomplete="PF('dlgCadastrarItem').show();"
+						update=":fCadastrar:pgCadastrar" />
+				</f:facet>
+
+			</p:dataTable>
+		</h:form>
+
+		<p:dialog header="Cadastrar Item" widgetVar="dlgCadastrarItem"
+			modal="true" showEffect="blind" hideEffect="explode"
+			resizable="false" appendTo="@(body)">
+
+			<h:form id="fCadastrar">
+
+				<p:outputPanel id="painelCadastrarItem"
+					style="text-align:center;">
+
+					<p:panelGrid id="pgCadastrar" columns="2"
+						columnClasses="label,value">
+
+						<h:outputText value="Nome" />
+						<h:inputText value="#{itemBean.item.partNumber}" />
+
+						<h:outputText value="Descrição" />
+						<h:inputText value="#{itemBean.item.descricao}" />
+						
+						<h:outputText value="Unidade de Medida" />
+						<h:inputText value="#{itemBean.item.unidadeDeMedida}" />
+						
+						<h:outputText value="idCliente" />
+						<h:inputText value="#{itemBean.item.cliente.id}" />
+						
+						<h:outputText value="idFornecedor" />
+						<h:inputText value="#{itemBean.item.fornecedor.id}" />
+						
+
+					</p:panelGrid>
+
+					<h:panelGrid columns="2">
+
+						<p:commandButton value="Cadastrar"
+							oncomplete="PF('dlgCadastrarItem').hide();"
+							actionListener="#{itemBean.Insert}"
+							update=":formTabela:tabelaItem :msgGlobal" />
+
+						<p:commandButton value="Cancel"
+							onclick="PF('dlgCadastrarItem').hide();" />
+					</h:panelGrid>
+
+				</p:outputPanel>
+
+			</h:form>
+
+		</p:dialog>
+
+		<p:dialog header="Excluir Item" widgetVar="dlgExcluirItem"
+			modal="true" showEffect="blind" hideEffect="explode"
+			resizable="false" appendTo="@(body)">
+
+			<h:form id="fExcluirItem">
+
+				<p:outputPanel id="pgExcluirItem" style="text-align:center;">
+
+					<p:panelGrid columns="2" columnClasses="label,value">
+
+						<h:outputText value="Id:" />
+						<h:outputText value="#{itemBean.item.id}" />
+
+						<h:outputText value="Part Number" />
+						<h:outputText value="#{itemBean.item.partNumber}" />
+
+						<h:outputText value="Descrição" />
+						<h:outputText value="#{itemBean.item.descricao}" />
+						
+						<h:outputText value="Unidade de Medida" />
+						<h:outputText value="#{itemBean.item.unidadeDeMedida}" />
+						
+						<h:outputText value="Cliente" />
+						<h:outputText value="#{itemBean.item.cliente.nome}" />
+						
+						<h:outputText value="Fornecedor" />
+						<h:outputText value="#{itemBean.item.fornecedor.nome}" />
+						
+						
+					</p:panelGrid>
+
+					<h:panelGrid columns="2">
+
+						<p:commandButton value="Excluir"
+							oncomplete="PF('dlgExcluirItem').hide();"
+							actionListener="#{itemBean.Delete}"
+							update=":formTabela:tabelaItem :msgGlobal" />
+
+						<p:commandButton value="Cancel"
+							onclick="PF('dlgExcluirItem').hide();" />
+
+					</h:panelGrid>
+
+				</p:outputPanel>
+
+			</h:form>
+
+		</p:dialog>
+
+		<p:dialog header="Alterar Item" widgetVar="dlgAlterarItem"
+			modal="true" showEffect="blind" hideEffect="explode"
+			resizable="false" appendTo="@(body)">
+
+			<h:form id="fAlterar">
+
+				<p:outputPanel id="pgAlterar" style="text-align:center;">
+
+					<p:panelGrid columns="2" columnClasses="label,value">
+
+						<h:outputText value="Id" />
+						<h:outputText value="#{itemBean.item.id}" />
+
+						<h:outputText value="Part Number" />
+						<h:inputText value="#{itemBean.item.partNumber}" />
+
+						<h:outputText value="Descrição" />
+						<h:inputText value="#{itemBean.item.descricao}" />
+						
+						<h:outputText value="Unidade de Medida" />
+						<h:inputText value="#{itemBean.item.unidadeDeMedida}" />
+						
+						<h:outputText value="idCliente" />
+						<h:inputText value="#{itemBean.item.cliente.id}" />
+						
+						<h:outputText value="idFornecedor" />
+						<h:inputText value="#{itemBean.item.fornecedor.id}" />
+
+					</p:panelGrid>
+
+					<h:panelGrid columns="2">
+
+						<p:commandButton value="Alterar"
+							oncomplete="PF('dlgAlterarItem').hide();"
+							actionListener="#{itemBean.Update}"
+							update=":formTabela:tabelaItem :msgGlobal" />
+
+						<p:commandButton value="Cancel"
+							onclick="PF('dlgAlterarItem').hide();" />
+
+					</h:panelGrid>
+
+				</p:outputPanel>
+
+			</h:form>
+
+		</p:dialog>
+
+
+	</ui:define>
+
+	<ui:define name="rodape">
+		<ui:include src="/templates/rodape.xhtml" />
+	</ui:define>
+
+</ui:composition>
